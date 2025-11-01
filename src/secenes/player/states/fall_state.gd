@@ -13,12 +13,11 @@ func physics_update(_delta: float) -> void:
 		if not owner.started_walking:
 			state_machine.transition_to("Idle")
 		else:
-			owner.velocity = owner.velocity * 0.75
+			owner.velocity = owner.velocity * 0.5
 			state_machine.transition_to("Move")
 	
 	if owner.is_on_wall():
-		#state_machine.transition_to("Walled")
-		pass
+		state_machine.transition_to("Walled")
 
 
 func exit() -> void:

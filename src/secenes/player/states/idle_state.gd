@@ -8,7 +8,6 @@ func enter(_msg := {}) -> void:
 
 func physics_update(_delta: float) -> void:
 	if not owner.started_walking:
-		owner.velocity = Vector2.ZERO
 		return
 	
 	if not owner.is_on_floor():

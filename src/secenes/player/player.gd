@@ -1,13 +1,12 @@
 extends CharacterBody2D
 
 # movement properties
-@export var max_speed: float = 220.0
+@export var max_speed: float = 125.0
 @export var default_friction: float = 1000.0     # Default friction when on normal surfaces
-var acceleration: float = 1000.0
 
 # jump properties
 @export var jump_height: float = 64.0            # Height in pixels
-@export var jump_time_to_peak: float = 0.3       # Time in seconds to reach peak
+@export var jump_time_to_peak: float = 0.4       # Time in seconds to reach peak
 @export var jump_time_to_descent: float = 0.3    # Time in seconds to descent
 
 # Physics properties
@@ -21,6 +20,7 @@ var fall_gravity: float  = (2.0 * jump_height) / (jump_time_to_descent ** 2)  # 
 
 # Nodes
 @onready var sprite = $Sprite
+@onready var animation_player = $AnimationPlayer
 
 # State
 var current_friction: float = default_friction   # Current friction based on surface
@@ -58,6 +58,7 @@ func reset() -> void:
 	needs_to_release = false
 	modifiers = {}
 	
+	velocity = Vector2.ZERO
 	global_position = starting_position
 	state_machine.transition_to(initial_state.name)
 	
@@ -73,25 +74,24 @@ func remove_modifier(modifier_name: String) -> void:
 	modifiers.erase(modifier_name)
 
 
-func play_animation(_animation_name: String) -> void:
-	pass
+func play_animation(animation_name: String) -> void:
+	animation_player.play(animation_name)
+
+
+func set_speedup_progress(progress: float) -> void:
+	progress = clamp(progress, 0.0, 1.0)
+	velocity.x = lerp(0.0, max_speed * facing_direction, progress)
 
 
 func _physics_process(delta: float) -> void:
 	if not started_walking:
 		return
-
-	_update_friction()
 	
-	if is_on_floor():
-		# On floor, use friction for deceleration
-		velocity.x = move_toward(velocity.x, max_speed * facing_direction, current_friction * delta)
-	else:
-		# In air, use acceleration
-		velocity.x = move_toward(velocity.x, max_speed * facing_direction, acceleration * delta)
+	velocity.x = move_toward(velocity.x, max_speed * facing_direction, current_friction * delta)
 	velocity.y += _get_actual_gravity() * delta
 	
 	_apply_modifiers()
+	_update_friction()
 	_update_facing_direction()
 	
 	move_and_slide()

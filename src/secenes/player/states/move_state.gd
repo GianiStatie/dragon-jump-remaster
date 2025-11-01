@@ -12,6 +12,3 @@ func physics_update(_delta: float) -> void:
 	
 	if owner.wants_to_jump and not owner.needs_to_release:
 		state_machine.transition_to("Jump")
-	
-	if not owner.is_on_floor():
-		state_machine.transition_to("Fall")

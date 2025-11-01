@@ -20,11 +20,10 @@ func physics_update(_delta: float) -> void:
 		owner.add_modifier("spiderman", {"velocity": Vector2(1, 0)})
 	
 	if (was_on_wall and not owner.is_on_wall()) or owner.is_on_floor():
-		jump_timer.stop()
+		owner.velocity.x *= 0.5
 		state_machine.transition_to("Move")
 	
 	elif not owner.wants_to_jump:
-		jump_timer.stop()
 		_on_jump_timer_timeout()
 
 
@@ -38,7 +37,7 @@ func exit() -> void:
 
 
 func _on_jump_timer_timeout() -> void:
-	#if was_on_wall:
-		#state_machine.transition_to("Walled")
-	#else: 
+	if was_on_wall:
+		state_machine.transition_to("Walled")
+	else: 
 		state_machine.transition_to("Fall")
