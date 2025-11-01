@@ -10,4 +10,4 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("3_h2yge")]
-position = Vector2(25, 167)
+position = Vector2(32, 136)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=10 format=3 uid="uid://cw8cw6fpq5n63"]
 
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/secenes/player/player.gd" id="1_uug8f"]
 [ext_resource type="Texture2D" uid="uid://dmbvyulj3wysa" path="res://assets/player/DinoSprites - doux.png" id="2_74gfc"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://dx2ry6r7fymd8" path="res://src/secenes/player/states/idle_state.gd" id="4_3m013"]
 [ext_resource type="Script" uid="uid://smgwcfp3t3mr" path="res://src/secenes/player/states/move_state.gd" id="5_ii60e"]
 [ext_resource type="Script" uid="uid://dcy2d5ldqq0er" path="res://src/secenes/player/states/fall_state.gd" id="6_8m0h4"]
+[ext_resource type="Script" uid="uid://dqe7wjlt23sn6" path="res://src/secenes/player/states/jump_state.gd" id="7_q88xr"]
+[ext_resource type="Script" uid="uid://dww1uaoymnuf2" path="res://src/secenes/player/state_name.gd" id="8_yu3wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uug8f"]
 size = Vector2(16, 16)
@@ -13,7 +15,7 @@ size = Vector2(16, 16)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uug8f")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_74gfc")
 hframes = 24
 
@@ -22,6 +24,7 @@ shape = SubResource("RectangleShape2D_uug8f")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_7p4af")
+initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_3m013")
@@ -32,4 +35,33 @@ script = ExtResource("5_ii60e")
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("6_8m0h4")
 
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("7_q88xr")
+
+[node name="JumpTimer" type="Timer" parent="StateMachine/Jump"]
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="StateLabel" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -34.0
+offset_right = 20.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "State
+Velocity"
+horizontal_alignment = 1
+script = ExtResource("8_yu3wn")
+
+[connection signal="transitioned" from="StateMachine" to="StateLabel" method="_on_state_machine_transitioned"]
+[connection signal="timeout" from="StateMachine/Jump/JumpTimer" to="StateMachine/Jump" method="_on_jump_timer_timeout"]
