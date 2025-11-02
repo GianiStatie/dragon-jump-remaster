@@ -1,12 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfft0y1vi3qmt"]
 
-[ext_resource type="Script" uid="uid://qulh8spnwa2x" path="res://src/scripts/player_spawner.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bvm718ddfisd7" path="res://src/secenes/level/level.tscn" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cw8cw6fpq5n63" path="res://src/secenes/player/player.tscn" id="3_h2yge"]
 
 [node name="Main" type="Node2D"]
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://cw8cw6fpq5n63")
-spawn_path = NodePath("..")
-script = ExtResource("2_0xm2m")
-network_player = ExtResource("3_h2yge")
+[node name="Level" parent="." instance=ExtResource("3_1bvp3")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(104, 96)
+zoom = Vector2(2, 2)
+
+[node name="Player" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(32, 136)

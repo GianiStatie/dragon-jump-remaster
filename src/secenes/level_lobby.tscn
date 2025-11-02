@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dtlt3ewvgm2g6"]
 
-[ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/secenes/level_lobby.gd" id="1_8ltkn"]
+[ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/secenes/player/state_label.gd" id="1_8ltkn"]
 
 [node name="LevelLobby" type="Control"]
 layout_mode = 3

@@ -1,26 +1,189 @@
-[gd_scene load_steps=5 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=18 format=3 uid="uid://cw8cw6fpq5n63"]
 
-[ext_resource type="Texture2D" uid="uid://bcfjeeqq7rmrh" path="res://icon.svg" id="1_5l7b2"]
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/secenes/player/player.gd" id="1_uug8f"]
+[ext_resource type="Texture2D" uid="uid://pg78dcequ8ep" path="res://assets/player/DinoSprites - doux-sheet.png" id="2_6uujk"]
+[ext_resource type="Script" uid="uid://td15gffk6sym" path="res://src/scripts/components/states/state_machine.gd" id="3_7p4af"]
+[ext_resource type="Script" uid="uid://dx2ry6r7fymd8" path="res://src/secenes/player/states/idle_state.gd" id="4_3m013"]
+[ext_resource type="Script" uid="uid://smgwcfp3t3mr" path="res://src/secenes/player/states/move_state.gd" id="5_ii60e"]
+[ext_resource type="Script" uid="uid://dcy2d5ldqq0er" path="res://src/secenes/player/states/fall_state.gd" id="6_8m0h4"]
+[ext_resource type="Script" uid="uid://dqe7wjlt23sn6" path="res://src/secenes/player/states/jump_state.gd" id="7_q88xr"]
+[ext_resource type="Script" uid="uid://d6ndn4vpff7p" path="res://src/secenes/player/states/walled_state.gd" id="8_6uujk"]
+[ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/secenes/player/state_label.gd" id="8_yu3wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uug8f"]
-size = Vector2(128, 128)
+size = Vector2(16, 16)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5l7b2"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
+[sub_resource type="Animation" id="Animation_62cf5"]
+resource_name = "Fall"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_6uujk"]
+resource_name = "Idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_3hyjg"]
+resource_name = "Jump"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [24, 25, 26]
+}
+
+[sub_resource type="Animation" id="Animation_tj7fb"]
+resource_name = "Move"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_i6xdb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_824xm"]
+resource_name = "Walled"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [27]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6xdb"]
+_data = {
+&"Fall": SubResource("Animation_62cf5"),
+&"Idle": SubResource("Animation_6uujk"),
+&"Jump": SubResource("Animation_3hyjg"),
+&"Move": SubResource("Animation_tj7fb"),
+&"RESET": SubResource("Animation_i6xdb"),
+&"Walled": SubResource("Animation_824xm")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uug8f")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_5l7b2")
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("2_6uujk")
+hframes = 28
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uug8f")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-delta_interval = 0.1
-replication_config = SubResource("SceneReplicationConfig_5l7b2")
-visibility_update_mode = 1
+[node name="ControllerContainer" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_7p4af")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_3m013")
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("5_ii60e")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("6_8m0h4")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("7_q88xr")
+
+[node name="JumpTimer" type="Timer" parent="StateMachine/Jump"]
+one_shot = true
+
+[node name="Walled" type="Node" parent="StateMachine"]
+script = ExtResource("8_6uujk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i6xdb")
+}
+
+[node name="StateLabel" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -34.0
+offset_right = 20.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_yu3wn")
+
+[connection signal="transitioned" from="StateMachine" to="StateLabel" method="_on_state_machine_transitioned"]
+[connection signal="timeout" from="StateMachine/Jump/JumpTimer" to="StateMachine/Jump" method="_on_jump_timer_timeout"]
