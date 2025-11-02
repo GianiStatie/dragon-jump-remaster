@@ -23,7 +23,6 @@ var fall_gravity: float  = (2.0 * jump_height) / (jump_time_to_descent ** 2)  # 
 @onready var controller_container: Node = $ControllerContainer
 var active_controller: PlayerController = null
 
-
 # Nodes
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

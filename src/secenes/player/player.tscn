@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=19 format=3 uid="uid://cw8cw6fpq5n63"]
 
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/secenes/player/player.gd" id="1_uug8f"]
-[ext_resource type="Texture2D" uid="uid://pg78dcequ8ep" path="res://assets/player/DinoSprites - doux-sheet.png" id="2_6uujk"]
+[ext_resource type="Texture2D" uid="uid://pg78dcequ8ep" path="res://assets/sprites/player/DinoSprites - doux-sheet.png" id="2_6uujk"]
 [ext_resource type="Script" uid="uid://td15gffk6sym" path="res://src/scripts/components/states/state_machine.gd" id="3_7p4af"]
 [ext_resource type="Script" uid="uid://dx2ry6r7fymd8" path="res://src/secenes/player/states/idle_state.gd" id="4_3m013"]
 [ext_resource type="Script" uid="uid://smgwcfp3t3mr" path="res://src/secenes/player/states/move_state.gd" id="5_ii60e"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/secenes/player/state_label.gd" id="8_yu3wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uug8f"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uujk"]
 size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_62cf5"]
@@ -134,7 +137,14 @@ texture = ExtResource("2_6uujk")
 hframes = 28
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_uug8f")
+
+[node name="InteractBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox"]
+visible = false
+shape = SubResource("RectangleShape2D_6uujk")
 
 [node name="ControllerContainer" type="Node" parent="."]
 

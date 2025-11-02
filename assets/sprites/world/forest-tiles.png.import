@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pg78dcequ8ep"
-path="res://.godot/imported/DinoSprites - doux-sheet.png-9fd11f8b2a368168092348050f87eed2.ctex"
+uid="uid://det5m0b87c313"
+path="res://.godot/imported/forest-tiles.png-5aa4617a700f0c305a40b98e36d9705e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/DinoSprites - doux-sheet.png"
-dest_files=["res://.godot/imported/DinoSprites - doux-sheet.png-9fd11f8b2a368168092348050f87eed2.ctex"]
+source_file="res://assets/sprites/world/forest-tiles.png"
+dest_files=["res://.godot/imported/forest-tiles.png-5aa4617a700f0c305a40b98e36d9705e.ctex"]
 
 [params]
 
