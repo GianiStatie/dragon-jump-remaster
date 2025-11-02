@@ -448,7 +448,6 @@ metadata/_better_terrain = {
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sypop"]
 texture = ExtResource("3_j8j4h")
-0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 0:1/next_alternative_id = 4
@@ -464,9 +463,6 @@ texture = ExtResource("3_j8j4h")
 0:1/3 = 3
 0:1/3/transpose = true
 0:1/3/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
-0:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_j8j4h"]
 physics_layer_0/collision_layer = 4
@@ -476,9 +472,6 @@ sources/0 = SubResource("TileSetAtlasSource_sypop")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lxq08"]
 texture = ExtResource("3_j8j4h")
 0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-0:1/0 = 0
 0:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
