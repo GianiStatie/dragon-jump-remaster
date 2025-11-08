@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnh6ais0ob6mp"
-path="res://.godot/imported/forest-tiles-5tile.png-1bee28f976d78c14082fb1e54af1c5fe.ctex"
+uid="uid://riso1kxfjte0"
+path="res://.godot/imported/tile-types.png-911822097836176c7656838cb917dc04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/world/forest-tiles-5tile.png"
-dest_files=["res://.godot/imported/forest-tiles-5tile.png-1bee28f976d78c14082fb1e54af1c5fe.ctex"]
+source_file="res://assets/sprites/world/tile-types.png"
+dest_files=["res://.godot/imported/tile-types.png-911822097836176c7656838cb917dc04.ctex"]
 
 [params]
 

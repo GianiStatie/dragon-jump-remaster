@@ -12,5 +12,5 @@ position = Vector2(104, 96)
 zoom = Vector2(3, 3)
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("3_h2yge")]
-position = Vector2(-168, 168)
+position = Vector2(40, 64)
 camera = NodePath("../Camera2D")
