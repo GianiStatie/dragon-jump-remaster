@@ -22,6 +22,9 @@ const autotileMap: Array = [
 
 
 func update_visual_tiles(cell_coords: Vector2i) -> void:
+	var cell_atlas_coords = self.get_cell_atlas_coords(cell_coords)
+	var source_id = cell_atlas_coords.x
+	
 	var directions = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
 	for direction in directions:
 		var visual_cell_coords = cell_coords + direction
@@ -34,7 +37,7 @@ func update_visual_tiles(cell_coords: Vector2i) -> void:
 		if len(visual_cell_choices) > 1:
 			visual_cell_probabilities = _get_cell_probabilites(visual_cell_choices, visual_layer, 0)
 		var atlas_coords = Utils.get_weighted_array_item(visual_cell_choices, visual_cell_probabilities)
-		visual_layer.set_cell(visual_cell_coords, 0, atlas_coords)
+		visual_layer.set_cell(visual_cell_coords, source_id, atlas_coords)
 
 
 func get_visual_tile_atlas_coords(cell_coords: Vector2i) -> Vector2i:
@@ -42,6 +45,7 @@ func get_visual_tile_atlas_coords(cell_coords: Vector2i) -> Vector2i:
 
 
 func _get_neighbour_count(cell_coords: Vector2i, tilemap_layer: TileMapLayer, as_binary: bool = false) -> int:
+	# TODO: add same type check
 	var neighbours = []
 	var directions = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
 	for i in range(len(directions)):

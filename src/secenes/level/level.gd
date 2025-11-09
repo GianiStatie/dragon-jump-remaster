@@ -50,6 +50,8 @@ const symbol_to_tile_info: Dictionary = {
 		"scene": null
 	}
 }
+const hidden_area_atlas_coors = Vector2i(1, 0)
+
 # These get populated at runtime
 var static_atlas_coords_to_symbol: Dictionary = {}
 var object_atlas_coords_to_symbol: Dictionary = {}
@@ -66,7 +68,7 @@ func _ready() -> void:
 	_init_terrain_layer()
 	_update_static_alt_tiles()
 	_populate_objects()
-	_init_hidden_areas()
+	#_init_hidden_areas()
 
 
 func _init_atlas_symbol_mapping() -> void:
@@ -194,11 +196,12 @@ func _replace_secret_cells(cell_array: Array) -> void:
 	for cell_coords in cell_array:
 		var atlas_coords = terrain_layer.get_visual_tile_atlas_coords(cell_coords)
 		secrets_layer.set_cell(cell_coords, 0, atlas_coords)
+		
+	# TODO: fix this
+	cell_array.reverse()
+	for cell_coords in cell_array:
 		terrain_layer.erase_cell(cell_coords)
-	
-	## TODO: fix this
-	#for cell_coords in cell_array:
-		#terrain_layer.update_visual_tiles(cell_coords)
+		terrain_layer.update_visual_tiles(cell_coords)
 
 
 func _get_4sides_alt_tile(cell: Vector2i) -> int:
