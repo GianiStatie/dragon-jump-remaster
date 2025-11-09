@@ -195,18 +195,21 @@ func _generate_area_for_island(tilemap: TileMapLayer, island: Array, island_inde
 
 func _replace_secret_cells(cell_array: Array) -> void:
 	for cell_coords in cell_array:
+		var source_id = terrain_layer.get_cell_source_id(cell_coords)
+		if source_id == -1:
+			continue
+		
 		var directions = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
 		for direction in directions:
 			var visual_cell_coords = cell_coords + direction
 			var atlas_coords = terrain_layer.get_visual_cell_atlas_coords(visual_cell_coords)
 			secrets_visual_layer.set_cell(visual_cell_coords, 0, atlas_coords)
-		
-		var atlas_coords = secrets_layer.get_cell_atlas_coords(cell_coords)
-		secrets_layer.set_cell(cell_coords, 0, atlas_coords, 1)
 	
 		terrain_layer.set_cell(cell_coords, 0, hidden_area_atlas_coors)
 		terrain_layer.update_visual_tiles(cell_coords)
-
+	
+	for cell_coords in cell_array:
+		secrets_layer.erase_cell(cell_coords)
 
 
 func _get_4sides_alt_tile(cell: Vector2i) -> int:
