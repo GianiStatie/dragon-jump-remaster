@@ -18,11 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 EnvironmentVariables="*res://src/scripts/network/environment_variables.gd"
-BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/better-terrain/plugin.cfg")
+Utils="*res://src/scripts/utils.gd"
 
 [input]
 

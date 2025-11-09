@@ -60,13 +60,6 @@ var object_atlas_coords_to_symbol: Dictionary = {}
 @onready var secrets_layer: TileMapLayer = $SecretsLayer
 @onready var terrain_visual_layer: TileMapLayer = $TerrainLayer/VisualLayer
 
-const autotileMap: Array = [
-	[0, 0], [0, 1], [2, 1], [0, 2],
-	[2, 2], [1, 0], [3, 1], [0, 3],
-	[1, 1], [2, 3], [3, 2], [2, 0],
-	[3, 0], [3, 3], [4, 0]
-]
-
 
 func _ready() -> void:
 	_init_atlas_symbol_mapping()
@@ -88,40 +81,7 @@ func _init_atlas_symbol_mapping() -> void:
 
 func _init_terrain_layer() -> void:
 	for cell_coords in terrain_layer.get_used_cells():
-		_update_visual_tiles(cell_coords)
-
-
-func _update_visual_tiles(cell_coords: Vector2i) -> void:
-	var directions = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-	for direction in directions:
-		var visual_cell_coords = cell_coords + direction
-		var neighbour_count = _get_neighbour_count(visual_cell_coords, terrain_layer, true)
-		if neighbour_count == 0:
-			continue
-		
-		var visual_cell_info = autotileMap[neighbour_count - 1]
-		var atlas_coords = Vector2i(0, visual_cell_info[0])
-		var alt_tile = visual_cell_info[1]
-		terrain_visual_layer.set_cell(visual_cell_coords, 0, atlas_coords, alt_tile)
-
-
-func _get_neighbour_count(cell_coords: Vector2i, tilemap_layer: TileMapLayer, as_binary: bool = false) -> int:
-	var neighbours = []
-	var directions = [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 0), Vector2i(1, 1)]
-	for i in range(len(directions)):
-		var direction = directions[i]
-		var neighbour = tilemap_layer.get_cell_tile_data(cell_coords + direction - Vector2i(1, 1))
-		neighbours.insert(0, neighbour != null)
-	
-	var neighbour_count = 0
-	for i in range(len(neighbours)):
-		if not neighbours[i]:
-			continue
-		if as_binary:
-			neighbour_count += 2 ** i
-		else:
-			neighbour_count += 1
-	return neighbour_count
+		terrain_layer.update_visual_tiles(cell_coords)
 
 
 func _update_static_alt_tiles() -> void:
