@@ -1,11 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bvm718ddfisd7"]
+[gd_scene load_steps=19 format=4 uid="uid://bvm718ddfisd7"]
 
 [ext_resource type="Script" uid="uid://oxbq6vk7mref" path="res://src/secenes/level/level.gd" id="1_sypop"]
+[ext_resource type="Texture2D" uid="uid://dcmba8urs6sej" path="res://assets/sprites/world/tileset.png" id="3_j8j4h"]
 [ext_resource type="Texture2D" uid="uid://riso1kxfjte0" path="res://assets/sprites/world/tile-types.png" id="3_lxq08"]
 [ext_resource type="Texture2D" uid="uid://6rwx7rq1h31i" path="res://assets/sprites/world/rock-tiles-wang/tileset_rock-tiles-wang.png" id="3_n86tn"]
 [ext_resource type="Script" uid="uid://bqlmtoyls3un1" path="res://src/secenes/level/terrain_layer.gd" id="3_qnuiv"]
 [ext_resource type="Texture2D" uid="uid://sg0wq6dg7a8n" path="res://assets/sprites/world/rock-tiles-wang/tilest-secret-rock-tiles-wang.png" id="5_n86tn"]
-[ext_resource type="Script" uid="uid://b6vvfthmemhgb" path="res://src/secenes/level/secrets_layer.gd" id="6_qnuiv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n86tn"]
 texture = ExtResource("3_lxq08")
@@ -72,41 +72,49 @@ texture = ExtResource("3_lxq08")
 [sub_resource type="TileSet" id="TileSet_0fmww"]
 sources/0 = SubResource("TileSetAtlasSource_qnuiv")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6av30"]
-texture = ExtResource("3_lxq08")
-0:2/next_alternative_id = 4
-0:2/0 = 0
-0:2/1 = 1
-0:2/1/flip_h = true
-0:2/1/flip_v = true
-0:2/2 = 2
-0:2/2/flip_h = true
-0:2/2/flip_v = true
-0:2/2/transpose = true
-0:2/3 = 3
-0:2/3/flip_v = true
-0:2/3/transpose = true
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_sypop"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sypop"]
+texture = ExtResource("3_j8j4h")
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_sypop")
+0:1/next_alternative_id = 4
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 4, 8, 4, 8, 8, -8, 8)
+0:1/1 = 1
+0:1/1/flip_v = true
+0:1/1/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -4, -8, -4)
+0:1/2 = 2
+0:1/2/flip_h = true
+0:1/2/transpose = true
+0:1/2/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)
+0:1/3 = 3
+0:1/3/transpose = true
+0:1/3/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
 
 [sub_resource type="TileSet" id="TileSet_j8j4h"]
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 0
-sources/2 = SubResource("TileSetAtlasSource_6av30")
+sources/0 = SubResource("TileSetAtlasSource_sypop")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fmww"]
-texture = ExtResource("3_lxq08")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lxq08"]
+texture = ExtResource("3_j8j4h")
+0:0/0 = 0
+0:2/0 = 0
 0:3/0 = 0
 1:3/0 = 0
-2:3/0 = 0
-3:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_vbg06"]
-sources/1 = SubResource("TileSetAtlasSource_0fmww")
+sources/0 = SubResource("TileSetAtlasSource_lxq08")
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_sypop")
 
 [node name="TerrainLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAHAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAP//AAAAAAAAAAAJAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAAFAP//AAAAAAAAAAAJAP//AAAAAAAAAAAKAP//AAAAAAAAAAACAAIAAAAAAAAAAAANAAIAAAAAAAAAAAANAAEAAAAAAAAAAAANAAAAAAAAAAAAAAANAP//AAAAAAAAAAAMAP//AAAAAAAAAAALAP//AAAAAAAAAAAEAP//AAAAAAAAAAADAP//AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_n86tn")
 script = ExtResource("3_qnuiv")
 
@@ -114,10 +122,9 @@ script = ExtResource("3_qnuiv")
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_exkae")
 
-[node name="SecretsLayer" type="TileMapLayer" parent="." node_paths=PackedStringArray("terrain_tilemap")]
+[node name="SecretsLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAHAAAAAAAAAAEAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAEAAAAHAAEAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_0fmww")
-script = ExtResource("6_qnuiv")
-terrain_tilemap = NodePath("../TerrainLayer")
 
 [node name="VisualLayer" type="TileMapLayer" parent="SecretsLayer"]
 position = Vector2(-8, -8)

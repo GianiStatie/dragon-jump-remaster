@@ -9,6 +9,11 @@ func enter(msg := {}) -> void:
 
 
 func physics_update(_delta: float) -> void:
+	if owner.wants_to_jump and owner.has_powerups():
+		var powerup_name = owner.consume_powerup()
+		if powerup_name == "DoubleJump":
+			state_machine.transition_to("Jump")
+	
 	if owner.is_on_floor():
 		if not owner.started_walking:
 			state_machine.transition_to("Idle")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=21 format=3 uid="uid://cw8cw6fpq5n63"]
 
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/secenes/player/player.gd" id="1_uug8f"]
-[ext_resource type="Texture2D" uid="uid://pg78dcequ8ep" path="res://assets/player/DinoSprites - doux-sheet.png" id="2_6uujk"]
+[ext_resource type="Texture2D" uid="uid://baxhjmno0fwf4" path="res://assets/sprites/player/DragonSprites.png" id="2_6uujk"]
 [ext_resource type="Script" uid="uid://td15gffk6sym" path="res://src/scripts/components/states/state_machine.gd" id="3_7p4af"]
 [ext_resource type="Script" uid="uid://dx2ry6r7fymd8" path="res://src/secenes/player/states/idle_state.gd" id="4_3m013"]
 [ext_resource type="Script" uid="uid://smgwcfp3t3mr" path="res://src/secenes/player/states/move_state.gd" id="5_ii60e"]
@@ -11,7 +11,13 @@
 [ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/secenes/player/state_label.gd" id="8_yu3wn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uug8f"]
-size = Vector2(16, 16)
+size = Vector2(11, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uujk"]
+size = Vector2(11, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6xdb"]
+size = Vector2(13, 15)
 
 [sub_resource type="Animation" id="Animation_62cf5"]
 resource_name = "Fall"
@@ -112,7 +118,25 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [27]
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_8vrmn"]
+resource_name = "Run"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [17, 18, 19, 20, 21, 22, 23]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i6xdb"]
@@ -122,6 +146,7 @@ _data = {
 &"Jump": SubResource("Animation_3hyjg"),
 &"Move": SubResource("Animation_tj7fb"),
 &"RESET": SubResource("Animation_i6xdb"),
+&"Run": SubResource("Animation_8vrmn"),
 &"Walled": SubResource("Animation_824xm")
 }
 
@@ -131,10 +156,37 @@ script = ExtResource("1_uug8f")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -1)
 texture = ExtResource("2_6uujk")
-hframes = 28
+offset = Vector2(-1, 0)
+hframes = 27
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_uug8f")
+
+[node name="InteractBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractBox"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_6uujk")
+
+[node name="HurtBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_i6xdb")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+
+[node name="CheckpointTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
 
 [node name="ControllerContainer" type="Node" parent="."]
 
@@ -185,5 +237,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_yu3wn")
 
+[connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="timeout" from="CheckpointTimer" to="." method="_on_checkpoint_timer_timeout"]
 [connection signal="transitioned" from="StateMachine" to="StateLabel" method="_on_state_machine_transitioned"]
 [connection signal="timeout" from="StateMachine/Jump/JumpTimer" to="StateMachine/Jump" method="_on_jump_timer_timeout"]

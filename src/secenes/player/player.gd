@@ -1,9 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
+@export var camera: Camera2D
+@onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
+
 # movement properties
-@export var max_speed: float = 110.0
-@export var default_friction: float = 1000.0     # Default friction when on normal surfaces
+@export var max_speed: float = 220.0
+@export var acceleation: float = 200.0
+@export var default_friction: float = 100.0      # Default friction when on normal surfaces
 
 # jump properties
 @export var jump_height: float = 56.0            # Height in pixels
@@ -23,7 +27,6 @@ var fall_gravity: float  = (2.0 * jump_height) / (jump_time_to_descent ** 2)  # 
 @onready var controller_container: Node = $ControllerContainer
 var active_controller: PlayerController = null
 
-
 # Nodes
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -35,23 +38,16 @@ var started_walking: bool = false
 var wants_to_jump: bool = false
 var needs_to_release: bool = false
 var modifiers: Dictionary = {}
+var powerups: Array = []
 var starting_position: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
 	starting_position = global_position
 	set_controller(HumanController.new(self))
+	remote_transform.remote_path = camera.get_path()
 	
 	reset()
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("player_jump"):
-		set_jump(true)
-	elif event.is_action_released("player_jump"):
-		set_jump(false)
-	elif event.is_action_pressed("player_reset"):
-		reset()
 
 
 func set_controller(controller: PlayerController) -> void:
@@ -106,11 +102,20 @@ func set_speedup_progress(progress: float) -> void:
 	velocity.x = lerp(0.0, max_speed * facing_direction, progress)
 
 
+func has_powerups() -> bool:
+	return len(powerups) > 0
+
+
+func consume_powerup() -> String:
+	# TODO: find a better way to do this
+	return powerups.pop_back()[1] 
+
+
 func _physics_process(delta: float) -> void:
 	if not started_walking:
 		return
 	
-	velocity.x = move_toward(velocity.x, max_speed * facing_direction, current_friction * delta)
+	velocity.x = move_toward(velocity.x, max_speed * facing_direction, (acceleation - current_friction) * delta)
 	velocity.y += _get_actual_gravity() * delta
 	
 	_apply_modifiers()
@@ -148,3 +153,22 @@ func _update_facing_direction() -> void:
 func _apply_modifiers() -> void:
 	for modifier in modifiers.values():
 		velocity *= modifier.get("velocity", 1.0) 
+
+
+func _on_hurt_box_body_entered(body: Node2D) -> void:
+	if body is TileMapLayer:
+		reset()
+
+
+func _on_interact_box_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Powerup") and len(powerups) < 3:
+		var interacted_areas = powerups.map(func(x): return x[0])
+		if area.name in interacted_areas:
+			return
+		powerups.append([area.name, area.get_powerup()])
+		print(powerups)
+
+
+func _on_checkpoint_timer_timeout() -> void:
+	#starting_position = global_position
+	pass
