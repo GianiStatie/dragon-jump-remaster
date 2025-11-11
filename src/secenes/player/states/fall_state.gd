@@ -13,6 +13,8 @@ func physics_update(_delta: float) -> void:
 		var powerup_name = owner.consume_powerup()
 		if powerup_name == "DoubleJump":
 			state_machine.transition_to("Jump")
+		elif powerup_name == "Stomp":
+			state_machine.transition_to("Stomp")
 	
 	if owner.is_on_floor():
 		if not owner.started_walking:

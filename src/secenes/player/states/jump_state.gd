@@ -34,6 +34,7 @@ func exit() -> void:
 	owner.wants_to_jump = false
 	owner.velocity.y = max(owner.velocity.y, 0)
 	owner.remove_modifier("spiderman")
+	owner.show_afterimage = false
 
 
 func _on_jump_timer_timeout() -> void:

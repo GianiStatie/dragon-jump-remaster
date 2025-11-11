@@ -30,6 +30,7 @@ var active_controller: PlayerController = null
 # Nodes
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var afterimage: GPUParticles2D = $Sprite/GPUParticles2D
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -40,6 +41,7 @@ var needs_to_release: bool = false
 var modifiers: Dictionary = {}
 var powerups: Array = []
 var starting_position: Vector2 = Vector2.ZERO
+var show_afterimage: bool = false : set = _on_show_after_image_changed
 
 
 func _ready() -> void:
@@ -75,6 +77,7 @@ func reset() -> void:
 	started_walking = false
 	wants_to_jump = false
 	needs_to_release = false
+	show_afterimage = false
 	modifiers = {}
 	
 	velocity = Vector2.ZERO
@@ -108,6 +111,7 @@ func has_powerups() -> bool:
 
 func consume_powerup() -> String:
 	# TODO: find a better way to do this
+	show_afterimage = true
 	return powerups.pop_back()[1] 
 
 
@@ -172,3 +176,8 @@ func _on_interact_box_area_entered(area: Area2D) -> void:
 func _on_checkpoint_timer_timeout() -> void:
 	#starting_position = global_position
 	pass
+
+
+func _on_show_after_image_changed(value: bool) -> void:
+	show_afterimage = value
+	afterimage.emitting = value
