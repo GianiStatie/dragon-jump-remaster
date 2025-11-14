@@ -9,7 +9,7 @@ func enter(_msg := {}) -> void:
 func physics_update(_delta: float) -> void:
 	if owner.is_on_wall():
 		owner.facing_direction *= -1
-		owner.velocity.x = owner.velocity.x * 0.2
+		owner.set_speedup_progress(0.5)
 	
 	if owner.velocity.x >= owner.max_speed * 0.9:
 		owner.play_animation("Run")

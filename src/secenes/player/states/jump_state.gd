@@ -1,13 +1,17 @@
 class_name JumpState
 extends State
 
-@onready var jump_timer: Timer = $JumpTimer
+@onready var timer: Timer = $Timer
 var was_on_wall: bool = false
+
+
+func _ready() -> void:
+	timer.timeout.connect(_on_jump_timer_timeout)
 
 
 func enter(_msg := {}) -> void:
 	was_on_wall = false
-	jump_timer.start(owner.jump_time_to_peak)
+	timer.start(owner.jump_time_to_peak)
 	owner.velocity.y = owner.jump_velocity
 	owner.play_animation(self.name)
 
@@ -29,7 +33,7 @@ func physics_update(_delta: float) -> void:
 
 func exit() -> void:
 	was_on_wall = false
-	jump_timer.stop()
+	timer.stop()
 	
 	owner.wants_to_jump = false
 	owner.velocity.y = max(owner.velocity.y, 0)
