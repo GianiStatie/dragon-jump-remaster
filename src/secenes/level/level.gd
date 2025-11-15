@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	_init_atlas_symbol_mapping()
 	_init_terrain_layer()
-	_update_static_alt_tiles()
+	#_update_static_alt_tiles()
 	
 	if not Engine.is_editor_hint():
 		_populate_objects()

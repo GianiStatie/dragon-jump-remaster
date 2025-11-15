@@ -1,6 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
+enum CONTROLLERS {
+	NONE,
+	PLAYER
+}
+@export var controller_type: CONTROLLERS = CONTROLLERS.NONE
+
 @export var camera: Camera2D
 @onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 
@@ -31,6 +37,7 @@ var active_controller: PlayerController = null
 @onready var sprite: Sprite2D = $Sprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var afterimage: GPUParticles2D = $Sprite/GPUParticles2D
+@onready var grappling_hook: Node2D = $Sprite/GaplingHook
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -46,8 +53,9 @@ var show_afterimage: bool = false : set = _on_show_after_image_changed
 
 func _ready() -> void:
 	starting_position = global_position
-	set_controller(HumanController.new(self))
 	remote_transform.remote_path = camera.get_path()
+	if controller_type == CONTROLLERS.PLAYER:
+		set_controller(HumanController.new(self))
 	
 	reset()
 
@@ -111,7 +119,16 @@ func has_powerups() -> bool:
 
 func consume_powerup() -> String:
 	# TODO: find a better way to do this
-	return powerups.pop_back()[1] 
+	var powerup_name = powerups.pop_back()[1]
+	return powerup_name
+
+
+func launch_grappling_hook() -> void:
+	grappling_hook.launch()
+
+
+func release_grappling_hook() -> void:
+	grappling_hook.release()
 
 
 func _physics_process(delta: float) -> void:

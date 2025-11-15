@@ -1,8 +1,8 @@
 [gd_scene load_steps=21 format=3 uid="uid://d2ob2cv2pjjie"]
 
-[ext_resource type="Texture2D" uid="uid://mw76cfyxm4pk" path="res://assets/sprites/misc/spinning-cards-final.png" id="1_h3iy3"]
 [ext_resource type="Shader" uid="uid://hfr0mvp0cr4b" path="res://assets/shaders/powerup.gdshader" id="1_ltnbc"]
 [ext_resource type="Script" uid="uid://duexaxrm3c7gm" path="res://src/secenes/powerups/powerup.gd" id="1_t78fr"]
+[ext_resource type="Texture2D" uid="uid://ck20ydgvj24ey" path="res://assets/sprites/misc/spinning-cards-sheet.png" id="3_t78fr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t78fr"]
 shader = ExtResource("1_ltnbc")
@@ -15,81 +15,75 @@ shader_parameter/rainbow_animate = true
 shader_parameter/rainbow_band_size = 1.8499999586488
 shader_parameter/rainbow_alpha = 0.50000002375
 shader_parameter/precision = 0.05
-shader_parameter/thickness = 2.000000095
+shader_parameter/thickness = 1.0000000475
 shader_parameter/ring_count = 4
 shader_parameter/ring_offset = 0.0
-shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_color = Color(1, 1, 1, 0.75000006)
 shader_parameter/border_clipping_fix = false
 shader_parameter/aspect_ratio = 1.0
-shader_parameter/square_border = true
-shader_parameter/offset = Vector2(-0.75, 0)
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
 shader_parameter/max_or_add = false
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ltnbc"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t78fr"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(64, 0, 64, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0cngp"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(128, 0, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ocxot"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(192, 0, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_den10"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(256, 0, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yidgl"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(0, 64, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m64c6"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(64, 64, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7lgpq"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(128, 64, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yylke"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(192, 64, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rmh2s"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(256, 64, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3nvho"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(0, 128, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18nxa"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(64, 128, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(64, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0duq"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(128, 128, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xyxht"]
-atlas = ExtResource("1_h3iy3")
-region = Rect2(192, 128, 64, 64)
+atlas = ExtResource("3_t78fr")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hklvw"]
+atlas = ExtResource("3_t78fr")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqh66"]
+atlas = ExtResource("3_t78fr")
+region = Rect2(48, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hklvw"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ltnbc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t78fr")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0cngp")
 }, {
@@ -125,6 +119,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xyxht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hklvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqh66")
 }],
 "loop": true,
 "name": &"default",
@@ -141,7 +141,6 @@ script = ExtResource("1_t78fr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_t78fr")
-scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_hklvw")
 autoplay = "default"
 frame_progress = 0.6772275

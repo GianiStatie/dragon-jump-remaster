@@ -5,15 +5,12 @@ extends JumpState
 func enter(_msg := {}) -> void:
 	super()
 	owner.velocity.y = 0
-	owner.velocity.x = owner.max_speed * 1.65 * owner.facing_direction
+	owner.velocity.x = owner.max_speed * owner.facing_direction * 1.65
+	owner.modifiers["dash"] = {"velocity": Vector2(1.0, -0.01)}
 	owner.show_afterimage = true
-
-
-func physics_update(delta: float) -> void:
-	super(delta)
-	owner.velocity.y = 0
 
 
 func exit() -> void:
 	super()
 	owner.show_afterimage = false
+	owner.remove_modifier("dash")

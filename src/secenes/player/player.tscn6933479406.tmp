@@ -249,14 +249,23 @@ process_material = SubResource("ParticleProcessMaterial_62cf5")
 [node name="GaplingHook" type="Node2D" parent="Sprite"]
 position = Vector2(0, 1)
 script = ExtResource("4_8vrmn")
-rest_length = 0.1
-stiffness = 50.0
+rest_length = 1.0
+stiffness = 30.0
+damping = 10.0
 
 [node name="GrapplingPoints" type="Node2D" parent="Sprite/GaplingHook"]
 
 [node name="RayCast2D" type="RayCast2D" parent="Sprite/GaplingHook/GrapplingPoints"]
-rotation = -2.268928
-target_position = Vector2(0, 150)
+rotation = -2.3561945
+target_position = Vector2(0, 100)
+
+[node name="RayCast2D2" type="RayCast2D" parent="Sprite/GaplingHook/GrapplingPoints"]
+rotation = -1.9198622
+target_position = Vector2(0, 100)
+
+[node name="RayCast2D3" type="RayCast2D" parent="Sprite/GaplingHook/GrapplingPoints"]
+rotation = -1.5707964
+target_position = Vector2(0, 100)
 
 [node name="GrappleIndicator" type="Sprite2D" parent="Sprite/GaplingHook"]
 position = Vector2(68, -68)
@@ -363,7 +372,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_yu3wn")
 
-[connection signal="should_release" from="Sprite/GaplingHook" to="StateMachine/Grapple" method="_on_gapling_hook_should_release"]
 [connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="timeout" from="CheckpointTimer" to="." method="_on_checkpoint_timer_timeout"]
