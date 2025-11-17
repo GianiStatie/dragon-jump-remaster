@@ -198,6 +198,7 @@ func _on_interact_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Powerup") and len(powerups) < 3:
 		pick_powerup(area)
 	elif area.is_in_group("Slippery"):
+		# TODO: find a better way to do this
 		add_modifier("slippery", {"velocity": Vector2(1.04, 1)})
 
 

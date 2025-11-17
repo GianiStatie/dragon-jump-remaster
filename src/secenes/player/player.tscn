@@ -243,7 +243,7 @@ hframes = 27
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_i6xdb")
-position = Vector2(-3, -1)
+position = Vector2(-3, 0)
 texture = ExtResource("3_tj7fb")
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_62cf5")
