@@ -39,6 +39,10 @@ var active_controller: PlayerController = null
 @onready var afterimage: GPUParticles2D = $Sprite/GPUParticles2D
 @onready var grappling_hook: Node2D = $Sprite/GaplingHook
 
+# Signals
+signal picked_powerup(powerup_name: String, id: int)
+signal used_powerup(id: int)
+
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
 var facing_direction: int = Vector2i.RIGHT.x
@@ -113,6 +117,15 @@ func set_speedup_progress(progress: float) -> void:
 	velocity.x = lerp(0.0, max_speed * facing_direction, progress)
 
 
+func pick_powerup(area: Area2D) -> void:
+	var interacted_areas = powerups.map(func(x): return x[0])
+	if area.name in interacted_areas:
+		return
+	var powerup_type = area.get_powerup()
+	powerups.append([area.name, powerup_type])
+	picked_powerup.emit(powerup_type, len(powerups) - 1)
+
+
 func has_powerups() -> bool:
 	return len(powerups) > 0
 
@@ -120,6 +133,7 @@ func has_powerups() -> bool:
 func consume_powerup() -> String:
 	# TODO: find a better way to do this
 	var powerup_name = powerups.pop_back()[1]
+	used_powerup.emit(len(powerups))
 	return powerup_name
 
 
@@ -182,11 +196,7 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 
 func _on_interact_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Powerup") and len(powerups) < 3:
-		var interacted_areas = powerups.map(func(x): return x[0])
-		if area.name in interacted_areas:
-			return
-		powerups.append([area.name, area.get_powerup()])
-		print(powerups)
+		pick_powerup(area)
 
 
 func _on_checkpoint_timer_timeout() -> void:

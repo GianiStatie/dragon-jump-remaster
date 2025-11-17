@@ -1,12 +1,7 @@
+class_name Powerup
 extends Area2D
-
-var powerups = [
-	"DoubleJump",
-	"Stomp",
-	"Dash"
-]
 
 
 func get_powerup() -> String:
-	#return powerups.pick_random() 
-	return "Grapple"
+	var powerup_names = Constants.POWERUPS.keys()
+	return powerup_names.pick_random()

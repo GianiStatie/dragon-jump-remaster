@@ -17,8 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EnvironmentVariables="*res://src/scripts/network/environment_variables.gd"
-Utils="*res://src/scripts/utils.gd"
+EnvironmentVariables="*res://src/scripts/singletons/environment_variables.gd"
+Constants="*res://src/scripts/singletons/constants.gd"
+Utils="*res://src/scripts/singletons/utils.gd"
 
 [input]
 
