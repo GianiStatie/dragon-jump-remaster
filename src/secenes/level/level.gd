@@ -12,43 +12,78 @@ const symbol_to_tile_info: Dictionary = {
 		"coords": null,
 		"callable": null,
 		"debug_alt": null,
-		"scene": null
+		"scene": null,
+		"args": null
 	},
-	"X": { # spikes
+	"Y": { # spikes
 		"type": CELL.STATIC,
 		"autotile": false,
 		"source": 0,
 		"coords": Vector2i(0, 2),
 		"callable": "_get_4sides_alt_tile",
 		"debug_alt": null,
-		"scene": null
+		"scene": null,
+		"args": null
 	},
-	"D": { # disolve wall
+	"B": { # disolve block
 		"type": CELL.OBJECT,
 		"autotile": false,
 		"source": 0,
 		"coords": Vector2i(0, 3),
 		"callable": null,
 		"debug_alt": null,
-		"scene": preload("res://src/secenes/level/tiles/disolve_block.tscn")
+		"scene": preload("res://src/secenes/level/tiles/disolve_block.tscn"),
+		"args": null
 	},
-	"P": { # powerup
+	"I": { # ice
 		"type": CELL.OBJECT,
 		"autotile": false,
 		"source": 0,
 		"coords": Vector2i(1, 3),
 		"callable": null,
 		"debug_alt": null,
-		"scene": preload("res://src/secenes/powerups/powerup.tscn")
+		"scene": preload("res://src/secenes/level/tiles/slippery_floor.tscn"),
+		"args": null
 	},
-	"S": { # slippery floor
+	"J": { # double jump
 		"type": CELL.OBJECT,
 		"autotile": false,
 		"source": 0,
-		"coords": Vector2i(4, 3),
+		"coords": Vector2i(0, 4),
 		"callable": null,
 		"debug_alt": null,
-		"scene": preload("res://src/secenes/level/tiles/slippery_floor.tscn")
+		"scene": preload("res://src/secenes/powerups/powerup.tscn"),
+		"args": ["DoubleJump"]
+	},
+	"S": { # stomp
+		"type": CELL.OBJECT,
+		"autotile": false,
+		"source": 0,
+		"coords": Vector2i(1, 4),
+		"callable": null,
+		"debug_alt": null,
+		"scene": preload("res://src/secenes/powerups/powerup.tscn"),
+		"args": ["Stomp"]
+	},
+	"D": { # dash
+		"type": CELL.OBJECT,
+		"autotile": false,
+		"source": 0,
+		"coords": Vector2i(2, 4),
+		"callable": null,
+		"debug_alt": null,
+		"scene": preload("res://src/secenes/powerups/powerup.tscn"),
+		"args": ["Dash"]
+	},
+	"G": { # grapple
+		"type": CELL.OBJECT,
+		"autotile": false,
+		"source": 0,
+		"coords": Vector2i(3, 4),
+		"callable": null,
+		"debug_alt": null,
+		"scene": preload("res://src/secenes/powerups/powerup.tscn"),
+		"args": ["Grapple"]
 	},
 	#"q": { # blending wall
 		#"type": CELL.STATIC,
@@ -148,7 +183,11 @@ func _populate_objects() -> void:
 	for cell_coords in objects_layer.get_used_cells():
 		var symbol = _get_cell_symbol(cell_coords, CELL.OBJECT)
 		var object_scene = symbol_to_tile_info[symbol]["scene"]
+		var object_arguments = symbol_to_tile_info[symbol]["args"]
+		
 		var object = object_scene.instantiate()
+		if object_arguments:
+			object.init(object_arguments)
 		var object_position = objects_layer.to_global(objects_layer.map_to_local(cell_coords))
 		
 		object.global_position = object_position
