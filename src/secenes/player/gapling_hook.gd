@@ -67,7 +67,7 @@ func _handle_grapple(delta):
 		
 		force = spring_force + grapple_damping
 	
-	if force.x < 0:
+	if sign(force.x) != sign(owner.facing_direction):
 		should_release.emit()
 	
 	owner.velocity += force * delta

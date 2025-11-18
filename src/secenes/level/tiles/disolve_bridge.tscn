@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbgbmoq8qnfmu"]
+
+[ext_resource type="PackedScene" uid="uid://tv706pi3cf28" path="res://src/secenes/level/tiles/disolve_block.tscn" id="1_bubwn"]
+[ext_resource type="Shader" uid="uid://b0wba1iwsluvd" path="res://assets/shaders/disolve.gdshader" id="2_3vux4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dn7m0"]
+resource_local_to_scene = true
+shader = ExtResource("2_3vux4")
+shader_parameter/sensitivity = 0.0
+shader_parameter/transparency = 1.0
+
+[node name="DisolveBridge" instance=ExtResource("1_bubwn")]
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_dn7m0")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

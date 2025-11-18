@@ -48,7 +48,7 @@ const symbol_to_tile_info: Dictionary = {
 		"coords": Vector2i(4, 3),
 		"callable": null,
 		"debug_alt": null,
-		"scene": preload("res://src/secenes/environment/slippery_floor.tscn")
+		"scene": preload("res://src/secenes/level/tiles/slippery_floor.tscn")
 	},
 	#"q": { # blending wall
 		#"type": CELL.STATIC,
