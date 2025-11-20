@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://d2ob2cv2pjjie"]
+[gd_scene load_steps=22 format=3 uid="uid://d2ob2cv2pjjie"]
 
 [ext_resource type="Script" uid="uid://duexaxrm3c7gm" path="res://src/scenes/powerups/powerup.gd" id="1_t78fr"]
 [ext_resource type="Shader" uid="uid://d13bki6w735lm" path="res://assets/shaders/powerup.gdshader" id="2_t78fr"]
 [ext_resource type="Texture2D" uid="uid://ck20ydgvj24ey" path="res://assets/sprites/misc/spinning-cards-sheet.png" id="3_t78fr"]
+[ext_resource type="AudioStream" uid="uid://djubut3dgdmkp" path="res://assets/sfx/SoundSlide.wav" id="4_tb0y2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t78fr"]
 resource_local_to_scene = true
@@ -141,3 +142,9 @@ frame_progress = 0.6772275
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_h3iy3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tb0y2")
+volume_db = -15.0
+attenuation = 3.0314267
+bus = &"SFX"

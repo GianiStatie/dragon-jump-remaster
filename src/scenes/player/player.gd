@@ -47,6 +47,7 @@ signal used_powerup(id: int)
 # Effects
 @onready var spawn_smoke = preload("res://src/scenes/effects/spawn_smoke_effect.tscn")
 @onready var despawn_smoke = preload("res://src/scenes/effects/despawn_smoke_effect.tscn")
+@onready var powerup_sfx: AudioStreamPlayer2D = $PowerupSFX
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -223,6 +224,7 @@ func _on_checkpoint_timer_timeout() -> void:
 func _on_show_after_image_changed(value: bool) -> void:
 	show_afterimage = value
 	afterimage.emitting = value
+	powerup_sfx.playing = value
 
 
 func _on_interact_box_body_entered(body: Node2D) -> void:

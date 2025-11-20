@@ -2,6 +2,7 @@ class_name Powerup
 extends Area2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var type: String = ""
 var color: Color = Color()
@@ -17,6 +18,7 @@ func _ready() -> void:
 
 
 func get_powerup() -> String:
+	sfx.play()
 	if type:
 		return type
 	var powerup_names = Constants.POWERUPS.keys()

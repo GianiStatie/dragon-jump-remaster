@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=37 format=3 uid="uid://cw8cw6fpq5n63"]
 
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/scenes/player/player.gd" id="1_uug8f"]
 [ext_resource type="Texture2D" uid="uid://baxhjmno0fwf4" path="res://assets/sprites/player/DragonSprites.png" id="2_6uujk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bcfjeeqq7rmrh" path="res://icon.svg" id="5_b7xrc"]
 [ext_resource type="Script" uid="uid://smgwcfp3t3mr" path="res://src/scenes/player/states/move_state.gd" id="5_ii60e"]
 [ext_resource type="Script" uid="uid://dcy2d5ldqq0er" path="res://src/scenes/player/states/fall_state.gd" id="6_8m0h4"]
+[ext_resource type="AudioStream" uid="uid://35l4xnse0nlc" path="res://assets/sfx/SoundBonus.wav" id="6_xgv0w"]
 [ext_resource type="Script" uid="uid://dqe7wjlt23sn6" path="res://src/scenes/player/states/jump_state.gd" id="7_q88xr"]
 [ext_resource type="Script" uid="uid://d6ndn4vpff7p" path="res://src/scenes/player/states/walled_state.gd" id="8_6uujk"]
 [ext_resource type="Script" uid="uid://behnqth2nvqyu" path="res://src/scenes/player/state_label.gd" id="8_yu3wn"]
@@ -289,6 +290,11 @@ texture = ExtResource("5_b7xrc")
 show_behind_parent = true
 points = PackedVector2Array(0, 0, 0, 0)
 width = 2.0
+
+[node name="PowerupSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_xgv0w")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
