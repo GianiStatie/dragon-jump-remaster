@@ -11,6 +11,7 @@ enum CONTROLLERS {
 @onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 
 # movement properties
+@export var starting_facing_direction: int = Vector2.RIGHT.x
 @export var max_speed: float = 220.0
 @export var acceleration: float = 350.0
 @export var default_friction: float = 100.0     # Default friction when on normal surfaces
@@ -89,7 +90,7 @@ func set_jump(input: bool) -> void:
 
 func reset() -> void:
 	current_friction = default_friction 
-	facing_direction = Vector2i.RIGHT.x
+	facing_direction = starting_facing_direction
 	started_walking = false
 	wants_to_jump = false
 	needs_to_release = false
@@ -221,3 +222,9 @@ func _on_checkpoint_timer_timeout() -> void:
 func _on_show_after_image_changed(value: bool) -> void:
 	show_afterimage = value
 	afterimage.emitting = value
+
+
+func _on_interact_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("StaticLayer"):
+		starting_position = global_position
+		starting_facing_direction = facing_direction

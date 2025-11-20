@@ -25,6 +25,16 @@ const symbol_to_tile_info: Dictionary = {
 		"scene": null,
 		"args": null
 	},
+	"R": { # reset blocks
+		"type": CELL.STATIC,
+		"autotile": false,
+		"source": 0,
+		"coords": Vector2i(0, 1),
+		"callable": "_replace_with_alt_tile",
+		"debug_alt": null,
+		"scene": null,
+		"args": null
+	},
 	"B": { # destroyable block
 		"type": CELL.OBJECT,
 		"autotile": false,
@@ -137,11 +147,11 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	_init_atlas_symbol_mapping()
 	_init_terrain_layer()
-	_update_static_alt_tiles()
 	
 	if not Engine.is_editor_hint():
 		_populate_objects()
 		_init_hidden_areas()
+		_update_static_alt_tiles()
 	
 	is_initialized = true
 
@@ -214,6 +224,10 @@ func _get_cell_symbol(cell_coords: Vector2i, cell_type: CELL) -> String:
 
 func _get_4sides_alt_tile(cell: Vector2i) -> int:
 	return _get_alt_tile(cell, [Vector2i.DOWN, Vector2i.UP, Vector2i.LEFT, Vector2i.RIGHT])
+
+
+func _replace_with_alt_tile(cell: Vector2i) -> int:
+	return 1
 
 
 func _get_alt_tile(cell: Vector2i, directions: Array[Vector2i]) -> int:
