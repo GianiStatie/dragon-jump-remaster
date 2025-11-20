@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c1fov605bxdlk"
+path="res://.godot/imported/JDSherbert - Minigame Music Pack - Streetlights.ogg-06e796d56c15d74189a0214702d64384.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/JDSherbert - Minigame Music Pack - Streetlights.ogg"
+dest_files=["res://.godot/imported/JDSherbert - Minigame Music Pack - Streetlights.ogg-06e796d56c15d74189a0214702d64384.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
