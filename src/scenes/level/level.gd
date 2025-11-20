@@ -226,7 +226,7 @@ func _get_4sides_alt_tile(cell: Vector2i) -> int:
 	return _get_alt_tile(cell, [Vector2i.DOWN, Vector2i.UP, Vector2i.LEFT, Vector2i.RIGHT])
 
 
-func _replace_with_alt_tile(cell: Vector2i) -> int:
+func _replace_with_alt_tile(_cell: Vector2i) -> int:
 	return 1
 
 

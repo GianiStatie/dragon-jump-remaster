@@ -11,7 +11,7 @@ enum CONTROLLERS {
 @onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 
 # movement properties
-@export var starting_facing_direction: int = Vector2.RIGHT.x
+@export var starting_facing_direction: int = Vector2i.RIGHT.x
 @export var max_speed: float = 220.0
 @export var acceleration: float = 350.0
 @export var default_friction: float = 100.0     # Default friction when on normal surfaces
@@ -46,7 +46,7 @@ signal used_powerup(id: int)
 
 # Effects
 @onready var spawn_smoke = preload("res://src/scenes/effects/spawn_smoke_effect.tscn")
-
+@onready var despawn_smoke = preload("res://src/scenes/effects/despawn_smoke_effect.tscn")
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -89,6 +89,7 @@ func set_jump(input: bool) -> void:
 
 
 func reset() -> void:
+	Utils.instance_scene_on_main(despawn_smoke, self.global_position)
 	current_friction = default_friction 
 	facing_direction = starting_facing_direction
 	started_walking = false

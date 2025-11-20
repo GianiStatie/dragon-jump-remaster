@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5m5n3lfx3tkn"]
+[gd_scene load_steps=13 format=3 uid="uid://c5m5n3lfx3tkn"]
 
 [ext_resource type="Texture2D" uid="uid://dykf2ycjndqn" path="res://assets/sprites/effects/spawn_smoke.png" id="1_q2i57"]
 [ext_resource type="Script" uid="uid://byaib0xkktjde" path="res://src/scenes/effects/spawn_smoke_effect.gd" id="2_rd73v"]
+[ext_resource type="AudioStream" uid="uid://chc1sug7yy72s" path="res://assets/sfx/poof.ogg" id="3_fljik"]
+[ext_resource type="Texture2D" uid="uid://b8s8y4l31f1nh" path="res://assets/sprites/effects/text-poof.png" id="3_iuxy8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rd73v"]
 atlas = ExtResource("1_q2i57")
@@ -53,6 +55,11 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fljik"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("3_fljik")
+
 [node name="SpawnSmokeEffect" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_fpks8")
 autoplay = "default"
@@ -61,4 +68,16 @@ frame_progress = 1.0
 offset = Vector2(-2, -8)
 script = ExtResource("2_rd73v")
 
+[node name="Text" type="Sprite2D" parent="."]
+position = Vector2(2.3841858e-07, -8)
+scale = Vector2(0.1875, 0.1875)
+texture = ExtResource("3_iuxy8")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fljik")
+volume_db = 5.0
+pitch_scale = 2.0
+bus = &"SFX"
+
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
