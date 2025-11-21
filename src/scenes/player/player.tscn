@@ -293,7 +293,7 @@ width = 2.0
 
 [node name="PowerupSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_xgv0w")
-volume_db = -10.0
+volume_db = -20.0
 bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

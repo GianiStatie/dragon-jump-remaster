@@ -29,7 +29,7 @@ const symbol_to_tile_info: Dictionary = {
 		"type": CELL.STATIC,
 		"autotile": false,
 		"source": 0,
-		"coords": Vector2i(0, 1),
+		"coords": Vector2i(1, 2),
 		"callable": "_replace_with_alt_tile",
 		"debug_alt": null,
 		"scene": null,

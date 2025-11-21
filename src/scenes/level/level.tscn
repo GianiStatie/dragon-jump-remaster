@@ -111,12 +111,12 @@ texture = ExtResource("3_lxq08")
 0:2/3/flip_v = true
 0:2/3/transpose = true
 0:2/3/physics_layer_0/polygon_0/points = PackedVector2Array(4, -4, 8, -4, 8, 8, 4, 8)
-0:1/next_alternative_id = 2
-0:1/0 = 0
-0:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:1/1 = 1
-0:1/1/modulate = Color(1, 1, 1, 0)
-0:1/1/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/next_alternative_id = 2
+1:2/0 = 0
+1:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/1 = 1
+1:2/1/modulate = Color(1, 1, 1, 0)
+1:2/1/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_j8j4h"]
 occlusion_layer_0/light_mask = 1
