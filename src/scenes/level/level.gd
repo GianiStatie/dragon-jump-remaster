@@ -104,6 +104,16 @@ const symbol_to_tile_info: Dictionary = {
 		"debug_alt": null,
 		"scene": preload("res://src/scenes/powerups/powerup.tscn"),
 		"args": ["Grapple"]
+	},
+	"C": { # corwn
+		"type": CELL.OBJECT,
+		"autotile": false,
+		"source": 0,
+		"coords": Vector2i(4, 3),
+		"callable": null,
+		"debug_alt": null,
+		"scene": preload("res://src/scenes/level/tiles/crown.tscn"),
+		"args": null
 	}
 }
 

@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://dq1nwfxo2xbdp"]
+
+[ext_resource type="Texture2D" uid="uid://riso1kxfjte0" path="res://assets/sprites/world/tile-types.png" id="1_nedtd"]
+[ext_resource type="Script" uid="uid://ir48auheh5e4" path="res://src/scenes/level/tiles/crown.gd" id="1_x78c4"]
+[ext_resource type="AudioStream" uid="uid://bo175m0kiuwev" path="res://assets/sfx/heavenly.ogg" id="3_x78c4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4no4a"]
+atlas = ExtResource("1_nedtd")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nedtd"]
+
+[sub_resource type="Animation" id="Animation_4no4a"]
+resource_name = "default"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, -4), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x78c4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xr5cp"]
+_data = {
+&"RESET": SubResource("Animation_x78c4"),
+&"default": SubResource("Animation_4no4a")
+}
+
+[node name="Crown" type="Area2D" groups=["Crown"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_x78c4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_4no4a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nedtd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xr5cp")
+}
+autoplay = "default"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_x78c4")
+volume_db = -5.0
+pitch_scale = 1.2
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

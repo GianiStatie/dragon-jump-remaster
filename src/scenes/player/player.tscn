@@ -51,7 +51,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +68,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -85,7 +85,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -103,7 +103,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -121,7 +121,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -139,7 +139,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -154,7 +154,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -172,7 +172,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -189,7 +189,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -207,7 +207,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -223,7 +223,7 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Flippable/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -253,40 +253,41 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource("1_uug8f")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Flippable" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Flippable"]
 position = Vector2(0, -1)
 texture = ExtResource("2_6uujk")
 offset = Vector2(-1, 0)
 hframes = 27
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Flippable"]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_i6xdb")
-position = Vector2(-3, 0)
+position = Vector2(-3, -1)
 texture = ExtResource("3_tj7fb")
 lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_62cf5")
 
-[node name="GaplingHook" type="Node2D" parent="Sprite"]
+[node name="GaplingHook" type="Node2D" parent="Flippable"]
 show_behind_parent = true
-position = Vector2(0, 1)
 script = ExtResource("4_8vrmn")
 rest_length = 0.1
 stiffness = 40.0
 
-[node name="GrapplingPoints" type="Node2D" parent="Sprite/GaplingHook"]
+[node name="GrapplingPoints" type="Node2D" parent="Flippable/GaplingHook"]
 
-[node name="RayCast2D" type="RayCast2D" parent="Sprite/GaplingHook/GrapplingPoints"]
+[node name="RayCast2D" type="RayCast2D" parent="Flippable/GaplingHook/GrapplingPoints"]
 rotation = -2.268928
 target_position = Vector2(0, 150)
 collision_mask = 33
 
-[node name="GrappleIndicator" type="Sprite2D" parent="Sprite/GaplingHook"]
+[node name="GrappleIndicator" type="Sprite2D" parent="Flippable/GaplingHook"]
 position = Vector2(68, -68)
 scale = Vector2(0.0546875, 0.0546875)
 texture = ExtResource("5_b7xrc")
 
-[node name="Line2D" type="Line2D" parent="Sprite/GaplingHook"]
+[node name="Line2D" type="Line2D" parent="Flippable/GaplingHook"]
 show_behind_parent = true
 points = PackedVector2Array(0, 0, 0, 0)
 width = 2.0
@@ -393,7 +394,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_yu3wn")
 
-[connection signal="should_release" from="Sprite/GaplingHook" to="StateMachine/Grapple" method="_on_gapling_hook_should_release"]
+[connection signal="should_release" from="Flippable/GaplingHook" to="StateMachine/Grapple" method="_on_gapling_hook_should_release"]
 [connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]
 [connection signal="area_entered" from="InteractBox" to="StateMachine/Stomp" method="_on_interact_box_area_entered"]
 [connection signal="area_exited" from="InteractBox" to="." method="_on_interact_box_area_exited"]
