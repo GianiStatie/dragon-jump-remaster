@@ -3,6 +3,7 @@ extends State
 
 
 func enter(_msg := {}) -> void:
+	owner.last_floor_position = owner.global_position
 	owner.play_animation(self.name)
 
 

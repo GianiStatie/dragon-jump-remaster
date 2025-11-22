@@ -1,0 +1,147 @@
+[gd_scene load_steps=20 format=3 uid="uid://cuxvtr7mh0bpt"]
+
+[ext_resource type="Texture2D" uid="uid://cgmt0utmeroml" path="res://assets/sprites/world/Green Portal Sprite Sheet.png" id="1_2py35"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2py35"]
+atlas = ExtResource("1_2py35")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fo2h"]
+atlas = ExtResource("1_2py35")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dtmy"]
+atlas = ExtResource("1_2py35")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y0b5"]
+atlas = ExtResource("1_2py35")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guc0i"]
+atlas = ExtResource("1_2py35")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrarr"]
+atlas = ExtResource("1_2py35")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xf87"]
+atlas = ExtResource("1_2py35")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6e28"]
+atlas = ExtResource("1_2py35")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1oaqg"]
+atlas = ExtResource("1_2py35")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfjhm"]
+atlas = ExtResource("1_2py35")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rchmg"]
+atlas = ExtResource("1_2py35")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sjgv"]
+atlas = ExtResource("1_2py35")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t6sy"]
+atlas = ExtResource("1_2py35")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm5ly"]
+atlas = ExtResource("1_2py35")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3h6n"]
+atlas = ExtResource("1_2py35")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hh2b"]
+atlas = ExtResource("1_2py35")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1fo2h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2py35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fo2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dtmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2y0b5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guc0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrarr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xf87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6e28")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1oaqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfjhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rchmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sjgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t6sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm5ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3h6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hh2b")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2py35"]
+size = Vector2(20, 42)
+
+[node name="Area2D" type="Area2D" groups=["Exit"]]
+collision_layer = 8
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -21)
+sprite_frames = SubResource("SpriteFrames_1fo2h")
+autoplay = "spawn"
+frame_progress = 0.3495865
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_2py35")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="AnimatedSprite2D" method="play" binds= ["default"]]

@@ -626,6 +626,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_yu3wn")
 
+[connection signal="has_resetted" from="." to="Observer" method="_on_player_has_resetted"]
 [connection signal="should_release" from="Flippable/GaplingHook" to="StateMachine/Grapple" method="_on_gapling_hook_should_release"]
 [connection signal="area_entered" from="InteractBox" to="." method="_on_interact_box_area_entered"]
 [connection signal="area_entered" from="InteractBox" to="StateMachine/Stomp" method="_on_interact_box_area_entered"]

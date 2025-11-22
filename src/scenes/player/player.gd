@@ -42,10 +42,13 @@ var active_controller: PlayerController = null
 @onready var hat_container: Node2D = $Flippable/HatContainer
 @onready var observer: Node = $Observer
 var has_crown: bool = false
+var last_floor_position: Vector2 = Vector2.ZERO
+var is_done: bool = false
 
 # Signals
 signal picked_powerup(powerup_name: String, id: int)
 signal used_powerup(id: int)
+signal has_resetted
 
 # Effects
 @onready var spawn_smoke = preload("res://src/scenes/effects/spawn_smoke_effect.tscn")
@@ -97,7 +100,9 @@ func set_jump(input: bool) -> void:
 
 func get_info() -> Dictionary:
 	return {
-		"progress": observer.get_progress()
+		"progress": observer.get_progress(),
+		"restarts": observer.reset_times,
+		"crowns_dropped": observer.crowns_dropped
 	}
 
 
@@ -115,6 +120,7 @@ func reset() -> void:
 	velocity = Vector2.ZERO
 	global_position = starting_position
 	state_machine.transition_to(initial_state.name)
+	has_resetted.emit()
 	
 	_update_facing_direction()
 	animation_player.play("Spawn")
@@ -177,15 +183,18 @@ func pickup_crown(hat: Area2D) -> void:
 
 func drop_crown() -> void:
 	for child in hat_container.get_children():
-		if child.is_in_group("Crown"):
-			child.reparent(get_parent())
-			child.drop()
-			has_crown = false
-			return
+		if not child.is_in_group("Crown"):
+			continue
+		
+		child.reparent(get_parent())
+		child.global_position = last_floor_position
+		child.drop()
+		has_crown = false
+		SignalBus.player_dropped_crown.emit(self)
 
 
 func _physics_process(delta: float) -> void:
-	if not started_walking:
+	if not started_walking or is_done:
 		return
 	
 	velocity.x = move_toward(velocity.x, max_speed * facing_direction, acceleration * delta)
@@ -229,6 +238,7 @@ func _apply_modifiers() -> void:
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
+	# This is for spikes
 	if body is TileMapLayer:
 		reset()
 
@@ -241,6 +251,9 @@ func _on_interact_box_area_entered(area: Area2D) -> void:
 		add_modifier("slippery", {"velocity": Vector2(1.07, 1)})
 	elif area.is_in_group("Crown") and not has_crown:
 		pickup_crown(area)
+	elif area.is_in_group("Exit"):
+		is_done = true
+		SignalBus.player_finished_run.emit(self)
 
 
 func _on_interact_box_area_exited(area: Area2D) -> void:
