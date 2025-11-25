@@ -23,9 +23,14 @@ func get_weighted_array_item(array: Array, weights=[]) -> Vector2i:
 
 
 func instance_scene_on_main(scene, position, rotation=0.0, scale=Vector2.ONE):
-	var main = get_tree().current_scene
+	var level_scenes = get_tree().get_nodes_in_group("Level")
+	if level_scenes.size() == 0:
+		print("can't instance scene, level scene missing")
+		return
+	
+	var level = level_scenes[0]
 	var instance = scene.instantiate()
-	main.add_child.call_deferred(instance)
+	level.add_child.call_deferred(instance)
 	instance.rotation = rotation
 	instance.scale = scale
 	instance.global_position = position

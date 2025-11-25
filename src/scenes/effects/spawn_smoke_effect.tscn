@@ -61,6 +61,7 @@ streams_count = 1
 stream_0/stream = ExtResource("3_fljik")
 
 [node name="SpawnSmokeEffect" type="AnimatedSprite2D"]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_fpks8")
 autoplay = "default"
 frame = 5
@@ -73,9 +74,9 @@ position = Vector2(2.3841858e-07, -8)
 scale = Vector2(0.1875, 0.1875)
 texture = ExtResource("3_iuxy8")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_fljik")
-volume_db = -5.0
+volume_db = -10.0
 pitch_scale = 2.0
 bus = &"SFX"
 

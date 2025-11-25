@@ -152,25 +152,31 @@ sources/0 = SubResource("TileSetAtlasSource_qnuiv")
 script = ExtResource("1_sypop")
 
 [node name="TerrainLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
 tile_set = SubResource("TileSet_n86tn")
 script = ExtResource("3_qnuiv")
 
 [node name="VisualLayer" type="TileMapLayer" parent="TerrainLayer"]
+texture_filter = 1
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_exkae")
 
 [node name="StaticLayer" type="TileMapLayer" parent="." groups=["StaticLayer"]]
+texture_filter = 1
 tile_set = SubResource("TileSet_j8j4h")
 
 [node name="ObjectsLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
 tile_set = SubResource("TileSet_vbg06")
 
 [node name="SecretsLayer" type="TileMapLayer" parent="." node_paths=PackedStringArray("terrain_tilemap")]
+texture_filter = 1
 tile_set = SubResource("TileSet_0fmww")
 script = ExtResource("6_qnuiv")
 terrain_tilemap = NodePath("../TerrainLayer")
 
 [node name="VisualLayer" type="TileMapLayer" parent="SecretsLayer"]
+texture_filter = 1
 position = Vector2(-8, -8)
 tile_set = SubResource("TileSet_exkae")
 y_sort_origin = 1

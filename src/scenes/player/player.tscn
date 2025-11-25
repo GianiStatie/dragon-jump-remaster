@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cw8cw6fpq5n63"]
+[gd_scene load_steps=35 format=3 uid="uid://cw8cw6fpq5n63"]
 
 [ext_resource type="Script" uid="uid://c306bigp8honi" path="res://src/scenes/player/player.gd" id="1_uug8f"]
 [ext_resource type="Script" uid="uid://chhu1axyjbnac" path="res://src/scenes/player/observer.gd" id="2_4r4qr"]
@@ -24,18 +24,6 @@ particles_animation = true
 particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
-
-[sub_resource type="Curve" id="Curve_tj7fb"]
-_data = [Vector2(0, 0.49568963), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_62cf5"]
-curve = SubResource("Curve_tj7fb")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_62cf5"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-alpha_curve = SubResource("CurveTexture_62cf5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uug8f"]
 size = Vector2(11, 15)
@@ -498,13 +486,14 @@ hframes = 27
 [node name="HatContainer" type="Node2D" parent="Flippable"]
 position = Vector2(-2, -11)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Flippable"]
+[node name="AfterImage" type="CPUParticles2D" parent="Flippable"]
+self_modulate = Color(1, 1, 1, 0.69000006)
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_i6xdb")
 position = Vector2(-3, -1)
 texture = ExtResource("3_tj7fb")
 lifetime = 0.2
-process_material = SubResource("ParticleProcessMaterial_62cf5")
+gravity = Vector2(0, 0)
 
 [node name="GaplingHook" type="Node2D" parent="Flippable"]
 show_behind_parent = true
@@ -529,9 +518,9 @@ show_behind_parent = true
 points = PackedVector2Array(0, 0, 0, 0)
 width = 2.0
 
-[node name="PowerupSFX" type="AudioStreamPlayer2D" parent="."]
+[node name="PowerupSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_xgv0w")
-volume_db = -20.0
+volume_db = -25.0
 bus = &"SFX"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

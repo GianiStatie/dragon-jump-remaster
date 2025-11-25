@@ -38,7 +38,7 @@ var active_controller: PlayerCharacterController = null
 # Nodes
 @onready var flippable_container: Node2D = $Flippable
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var afterimage: GPUParticles2D = $Flippable/GPUParticles2D
+@onready var afterimage: CPUParticles2D = $Flippable/AfterImage
 @onready var grappling_hook: Node2D = $Flippable/GaplingHook
 @onready var hat_container: Node2D = $Flippable/HatContainer
 @onready var observer: Node = $Observer
@@ -54,7 +54,7 @@ signal has_resetted
 # Effects
 @onready var spawn_smoke = preload("res://src/scenes/effects/spawn_smoke_effect.tscn")
 @onready var despawn_smoke = preload("res://src/scenes/effects/despawn_smoke_effect.tscn")
-@onready var powerup_sfx: AudioStreamPlayer2D = $PowerupSFX
+@onready var powerup_sfx: AudioStreamPlayer = $PowerupSFX
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -266,6 +266,7 @@ func _on_interact_box_area_exited(area: Area2D) -> void:
 
 func _on_show_after_image_changed(value: bool) -> void:
 	show_afterimage = value
+	afterimage.visible = value
 	afterimage.emitting = value
 	powerup_sfx.playing = value
 
