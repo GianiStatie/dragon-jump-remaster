@@ -7,11 +7,12 @@ extends Node
 @export var viewport_p1: SubViewport
 @export var viewport_p2: SubViewport
 
-@export var progress_bar: MarginContainer
-@export var card_container: Panel
-@export var end_screen: Panel
 
 @onready var level_music: AudioStreamPlayer = $AudioStreamPlayer
+@onready var progress_bar: MarginContainer = $CanvasLayer/ProgressBar
+@onready var card_container: Panel = $CanvasLayer/CardContainer
+@onready var end_screen: Panel = $CanvasLayer/EndScreen
+
 @onready var player_scene = preload("res://src/scenes/player/player.tscn")
 @onready var camera_scene = preload("res://src/scenes/camera_2d.tscn")
 @onready var portal_scene = preload("res://src/scenes/level/tiles/portal.tscn")
