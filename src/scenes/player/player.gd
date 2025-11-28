@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 enum CONTROLLERS {
 	NONE,
-	PLAYER
+	PLAYER_ONE,
+	PLAYER_TWO
 }
 @export var controller_type: CONTROLLERS = CONTROLLERS.NONE
 
@@ -32,12 +33,12 @@ enum CONTROLLERS {
 
 # Controllers
 @onready var controller_container: Node = $ControllerContainer
-var active_controller: PlayerController = null
+var active_controller: PlayerCharacterController = null
 
 # Nodes
 @onready var flippable_container: Node2D = $Flippable
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var afterimage: GPUParticles2D = $Flippable/GPUParticles2D
+@onready var afterimage: CPUParticles2D = $Flippable/AfterImage
 @onready var grappling_hook: Node2D = $Flippable/GaplingHook
 @onready var hat_container: Node2D = $Flippable/HatContainer
 @onready var observer: Node = $Observer
@@ -53,7 +54,7 @@ signal has_resetted
 # Effects
 @onready var spawn_smoke = preload("res://src/scenes/effects/spawn_smoke_effect.tscn")
 @onready var despawn_smoke = preload("res://src/scenes/effects/despawn_smoke_effect.tscn")
-@onready var powerup_sfx: AudioStreamPlayer2D = $PowerupSFX
+@onready var powerup_sfx: AudioStreamPlayer = $PowerupSFX
 
 # Reset params
 var current_friction: float = default_friction   # Current friction based on surface
@@ -69,8 +70,10 @@ var show_afterimage: bool = false : set = _on_show_after_image_changed
 
 func _ready() -> void:
 	starting_position = global_position
-	if controller_type == CONTROLLERS.PLAYER:
-		set_controller(HumanController.new(self))
+	if controller_type == CONTROLLERS.PLAYER_ONE:
+		set_controller(PlayerOneController.new(self))
+	elif controller_type == CONTROLLERS.PLAYER_TWO:
+		set_controller(PlayerTwoController.new(self))
 	
 	if camera:
 		remote_transform.remote_path = camera.get_path()
@@ -79,7 +82,7 @@ func _ready() -> void:
 	reset()
 
 
-func set_controller(controller: PlayerController) -> void:
+func set_controller(controller: PlayerCharacterController) -> void:
 	for child in controller_container.get_children():
 		child.queue_free()
 	
@@ -263,6 +266,7 @@ func _on_interact_box_area_exited(area: Area2D) -> void:
 
 func _on_show_after_image_changed(value: bool) -> void:
 	show_afterimage = value
+	afterimage.visible = value
 	afterimage.emitting = value
 	powerup_sfx.playing = value
 

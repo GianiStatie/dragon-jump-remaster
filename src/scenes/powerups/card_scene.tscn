@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cldij6xkdi5rh"]
 
 [ext_resource type="Texture2D" uid="uid://cjjf8vs25msrp" path="res://assets/sprites/cards/Void_Card_8.png" id="1_5vsbu"]
-[ext_resource type="Script" uid="uid://1ela5ki2cm8j" path="res://src/secenes/powerups/card_scene.gd" id="1_uqjuy"]
+[ext_resource type="Script" uid="uid://1ela5ki2cm8j" path="res://src/scenes/powerups/card_scene.gd" id="1_uqjuy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
 atlas = ExtResource("1_5vsbu")

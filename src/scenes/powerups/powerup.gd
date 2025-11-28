@@ -2,7 +2,7 @@ class_name Powerup
 extends Area2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
 
 var type: String = ""
 var color: Color = Color()

@@ -3,6 +3,7 @@ extends Panel
 const margin_shift_draw := [-10, 0, 0, 10]
 const margin_shift_play := [10, 0, 0, -10]
 @onready var card_scene = preload("res://src/scenes/powerups/card_scene.tscn")
+var is_splitscreen: bool = false
 
 
 func shift_card_positions(backward: bool = false) -> void:
@@ -14,6 +15,7 @@ func shift_card_positions(backward: bool = false) -> void:
 func _on_player_picked_powerup(powerup_name: String, id: int) -> void:
 	shift_card_positions()
 	var card_object = card_scene.instantiate()
+	card_object.is_splitscreen = is_splitscreen
 	self.add_child(card_object)
 	card_object.name = str(id)
 	card_object.draw(powerup_name)

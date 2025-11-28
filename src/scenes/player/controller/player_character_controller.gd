@@ -1,4 +1,4 @@
-class_name PlayerController
+class_name PlayerCharacterController
 extends Node
 
 var player: Player

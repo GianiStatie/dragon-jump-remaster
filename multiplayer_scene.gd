@@ -6,12 +6,13 @@ extends Node
 @export var camera_p2: Camera2D
 @export var viewport_p1: SubViewport
 @export var viewport_p2: SubViewport
-
-@export var progress_bar: MarginContainer
-@export var card_container: Panel
-@export var end_screen: Panel
+@export var viewport_container_p2: SubViewportContainer
+@export var card_container: VBoxContainer
 
 @onready var level_music: AudioStreamPlayer = $AudioStreamPlayer
+@onready var progress_bar: MarginContainer = $CanvasLayer/ProgressBar
+@onready var end_screen: Panel = $CanvasLayer/EndScreen
+
 @onready var player_scene = preload("res://src/scenes/player/player.tscn")
 @onready var camera_scene = preload("res://src/scenes/camera_2d.tscn")
 @onready var portal_scene = preload("res://src/scenes/level/tiles/portal.tscn")
@@ -27,6 +28,7 @@ var player_nodes = []
 
 
 func _ready():
+	viewport_container_p2.visible = false
 	initialize_players()
 	level._update_race_finish_position()
 	SignalBus.player_touched_crown.connect(_on_player_touched_crown)
@@ -51,17 +53,20 @@ func initialize_players() -> void:
 		if i == 0:
 			player.controller_type = player.CONTROLLERS.PLAYER_ONE
 			player.camera = camera_p1
-			player.picked_powerup.connect(card_container._on_player_picked_powerup)
-			player.used_powerup.connect(card_container._on_player_used_powerup)
 		elif i == 1:
 			player.controller_type = player.CONTROLLERS.PLAYER_TWO
 			player.camera = camera_p2
 			viewport_p2.world_2d = viewport_p1.world_2d
+			viewport_container_p2.visible = true
+			camera_p1.zoom = Vector2(2.0, 2.0)
+			camera_p2.zoom = Vector2(2.0, 2.0)
 		
 		player.name = "Player%s"%(i+1)
 		player.global_position = player_position
 		player_node.add_child(player)
 		player_nodes.append(player)
+	
+	card_container.map_player_signals(player_nodes)
 
 
 func freeze_frame(timescale: float, duration: float) -> void:
